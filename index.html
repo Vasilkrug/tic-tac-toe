@@ -6,6 +6,62 @@
     <title>Title</title>
 </head>
 <body>
+<div class="game-wrapper">
+    <div class="back">
+        <a class="back-btn"><img src="./assets/back.png" alt="back"></a>
+    </div>
+    <div class="game-title">
+        <h2>
+            <span class="tic">Крестики </span>
+            <span class="tac">Н<span class="red">О</span>лики</span>
+        </h2>
+    </div>
+    <div class="game-buttons">
+        <button class="game-btn" data-game="friends">Играть с друзьями</button>
+        <button class="game-btn" data-game="bot">Играть с ботом</button>
+    </div>
+    <div class="game">
+        <div class="game-info">
+            <div class="player1">
+                <img class="player-img" src="./assets/small-x.png" alt="x">
+                -
+                <span class="count-x">0</span>
+            </div>
+            <div class="player2">
+                <img class="player-img" src="./assets/small-zero.png" alt="x">
+                -
+                <span class="count-o">0</span>
+            </div>
+        </div>
+        <div class="result">
+            <img class="result-img" src="assets/win.png" alt="result"/>
+            <p class="result-text">Вы победили!</p>
+
+        </div>
+        <table class="fields">
+            <tr data-row="0">
+                <td class="cell" data-index="0"></td>
+                <td class="cell" data-index="1"></td>
+                <td class="cell" data-index="2"></td>
+            </tr>
+            <tr data-row="1">
+                <td class="cell" data-index="0"></td>
+                <td class="cell" data-index="1"></td>
+                <td class="cell" data-index="2"></td>
+            </tr>
+            <tr data-row="2">
+                <td class="cell" data-index="0"></td>
+                <td class="cell" data-index="1"></td>
+                <td class="cell" data-index="2"></td>
+            </tr>
+        </table>
+
+        <div class="play-again">
+            <a class="play-again-btn">Сыграть снова</a>
+        </div>
+    </div>
+</div>
+
 <script src="./scripts/index.js"></script>
 </body>
 </html>
