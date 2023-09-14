@@ -7,29 +7,28 @@ export const minimax = (fields, depth, isMaximizing) => {
     if (result !== null) {
         return scores[result];
     }
-
     if (isMaximizing) {
-        let bestScore = -Infinity;
+        let bestScore = Infinity;
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
                 if (fields[i][j] === '') {
                     fields[i][j] = 'o';
                     let score = minimax(fields, depth + 1, false);
                     fields[i][j] = '';
-                    bestScore = Math.max(score, bestScore);
+                    bestScore = Math.min(score, bestScore);
                 }
             }
         }
         return bestScore;
     } else {
-        let bestScore = Infinity;
+        let bestScore = -Infinity;
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
                 if (fields[i][j] === '') {
                     fields[i][j] = 'x';
                     let score = minimax(fields, depth + 1, true);
                     fields[i][j] = '';
-                    bestScore = Math.min(score, bestScore);
+                    bestScore = Math.max(score, bestScore);
                 }
             }
         }

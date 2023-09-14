@@ -95,18 +95,19 @@ const gameWithComputer = () => {
             if (fields[row][cellIdx] !== '' || !isGameStarted) {
                 return;
             }
-
             if (fields[row][cellIdx] === '') {
                 fields[row][cellIdx] = player;
                 renderCell(row, cellIdx, player)
                 if (gameLevel === 'easy') {
                     easyStepComp();
                 } else {
-                    hardStepComp();
+                        hardStepComp();
+
                 }
+                let winner = getWinner(fields);
+                checkWinnerRender(winner);
             }
-            let winner = getWinner(fields);
-            checkWinnerRender(winner);
+
         })
     });
 };
@@ -145,9 +146,9 @@ const hardStepComp = () => {
             }
         }
     }
-    if (move === undefined){
+    if (move === undefined) {
         showResults('Ничья!');
-    }else {
+    } else {
         renderCell(move.i, move.j, ai);
         fields[move.i][move.j] = ai;
     }
