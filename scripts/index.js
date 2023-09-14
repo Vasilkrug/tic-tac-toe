@@ -38,6 +38,7 @@ const renderCell = (i, j, player) => {
     cell.innerHTML = `<img src=${playersImages[player]} alt="player">`;
 };
 
+//здесь я эмулирую переход на другую страницу, убирая некоторые блоки
 const hideBlocks = () => {
     gameTitle.style.display = 'none';
     gameBtnsWrapper.style.display = 'none';
@@ -46,7 +47,7 @@ const hideBlocks = () => {
     result.style.visibility = 'hidden';
     levels.style.display = 'none';
 };
-
+//здесь я эмулирую переход на другую страницу, показывая некоторые блоки
 const showBlocks = () => {
     gameTitle.style.display = 'block';
     gameBtnsWrapper.style.display = 'flex';
@@ -54,17 +55,18 @@ const showBlocks = () => {
     gameBlock.style.display = 'none';
     levels.style.display = 'flex';
 };
-
+//показываю результы
 const showResults = (text) => {
     result.style.visibility = 'visible';
     resultText.innerHTML = text;
 };
-
+//игра с другим игроком
 const gameWithFriend = () => {
     cells.forEach(cell => {
         cell.addEventListener('click', () => {
             const row = cell.parentNode.dataset.row;
             const cellIdx = cell.dataset.index;
+//если кликаем по занятой клетке то ничего не происходит, так же если игра не запущена заново ничего не происходит
             if (fields[row][cellIdx] !== '' || !isGameStarted) {
                 return;
             }
@@ -73,12 +75,13 @@ const gameWithFriend = () => {
                 fields[row][cellIdx] = player;
                 renderCell(row, cellIdx, player);
             }
-
+            //меняем игрока после каждого хода
             if (player === 'x') {
                 player = 'o';
             } else {
                 player = 'x';
             }
+//получаем победителя, рендерим и схораняем результаты в localstorage
             let winner = getWinner(fields);
             checkWinnerRender(winner);
             saveToLocalStorage();
@@ -86,7 +89,7 @@ const gameWithFriend = () => {
         })
     });
 };
-
+//игра с компом, делится на 2 вида (легкий и тяжелый)
 const gameWithComputer = () => {
     cells.forEach(cell => {
         cell.addEventListener('click', () => {
@@ -97,21 +100,19 @@ const gameWithComputer = () => {
             }
             if (fields[row][cellIdx] === '') {
                 fields[row][cellIdx] = player;
-                renderCell(row, cellIdx, player)
+                renderCell(row, cellIdx, player);
                 if (gameLevel === 'easy') {
                     easyStepComp();
                 } else {
-                        hardStepComp();
-
+                    hardStepComp();
                 }
                 let winner = getWinner(fields);
                 checkWinnerRender(winner);
             }
-
         })
     });
 };
-
+//легкий реализован согласно алгоритму случайного попадания в пустую ячейку
 const easyStepComp = () => {
     const indexesArray = [];
     for (let i = 0; i < fields.length; i++) {
@@ -128,13 +129,12 @@ const easyStepComp = () => {
         fields[i][j] = ai;
     }
 };
-
+//тяжелый реализован согласно алгоритму minimax, который сводит игру либо к своей победе, либо к ничьей
 const hardStepComp = () => {
     let bestScore = Infinity;
     let move;
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
-            // Is the spot available?
             if (fields[i][j] === '') {
                 fields[i][j] = ai;
                 let score = minimax(fields, 0, false);
@@ -146,15 +146,14 @@ const hardStepComp = () => {
             }
         }
     }
+    //если шагов не осталось, значит ничья
     if (move === undefined) {
         showResults('Ничья!');
     } else {
         renderCell(move.i, move.j, ai);
         fields[move.i][move.j] = ai;
     }
-
 };
-
 
 gameBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -212,7 +211,7 @@ const checkWinnerRender = (winner) => {
         }
     }
 };
-
+//сохраняем определенные элементы в локальное хранилище
 const saveToLocalStorage = () => {
     localStorage.setItem("fields", JSON.stringify(fields));
     localStorage.setItem("player", player);
@@ -220,7 +219,7 @@ const saveToLocalStorage = () => {
     localStorage.setItem('oScore', scores.o);
     localStorage.setItem('isStarted', isGameStarted)
 };
-
+//забираем из локального хранилища
 const getFromLocalStorage = () => {
     if (localStorage.getItem('fields')) {
         const fieldsStore = JSON.parse(localStorage.getItem('fields'));
@@ -238,8 +237,8 @@ const getFromLocalStorage = () => {
         for (let i = 0; i < fieldsStore.length; i++) {
             for (let j = 0; j < fieldsStore.length; j++) {
                 if (fields[i][j] !== '') {
-                    renderCell(i, j, fields[i][j])
-                    gameWithFriend()
+                    renderCell(i, j, fields[i][j]);
+                    gameWithFriend();
                 }
             }
         }
@@ -250,4 +249,4 @@ const getFromLocalStorage = () => {
     }
 };
 
-getFromLocalStorage()
+getFromLocalStorage();

@@ -1,4 +1,5 @@
 const equals = (a, b, c) => a === b && b === c && a !== '';
+
 export const getWinner = (fields) => {
     let winner = null;
 
@@ -34,8 +35,8 @@ export const getWinner = (fields) => {
         }
     }
     if (winner === null && openSpots === 0) {
-        return 'draw'
+        return 'draw';
     } else {
-        return winner
+        return winner;
     }
-}
+};
