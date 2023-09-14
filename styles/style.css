@@ -42,7 +42,7 @@ body {
     gap: 50px;
 }
 
-.game-btn {
+.game-btn, .level-btn {
     background: none;
     padding: 22px 44px;
     border-radius: 50px;
@@ -53,7 +53,35 @@ body {
     color: #454545;
 }
 
-.game-btn:hover {
+.level-btn {
+    width: 150px;
+    padding: 10px;
+}
+
+.levels {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.levels-title {
+    text-align: center;
+}
+
+.levels-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.active {
+    color: red;
+    border: 1px solid red;
+}
+
+.game-btn:hover, .level-btn:hover {
     color: red;
     border: 1px solid red;
 }
@@ -114,6 +142,7 @@ body {
     font-weight: 600;
     color: #454545;
 }
+
 .result-text img {
     width: 24px;
     height: 25px;
